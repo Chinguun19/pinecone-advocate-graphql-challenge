@@ -7,10 +7,10 @@ interface GetAllTasksArgs {
 export const getAllTasks = async (_: any, args: GetAllTasksArgs) => {
   try {
     const { userId } = args;
-    console.log("Fetching tasks for userId:", userId); // Debug log
+    console.log("Fetching tasks for userId:", userId); 
 
     const user = await User.findOne({ userId });
-    console.log("User found:", user); // Debug log
+    console.log("User found:", user); 
 
     if (!user) {
       throw new Error("User not found");

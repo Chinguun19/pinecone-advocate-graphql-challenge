@@ -43,7 +43,6 @@ const TaskForm: React.FC<TaskFormProps> = ({
       [name]: name === 'priority' ? parseInt(value, 10) : value
     }));
     
-    // Clear error when field is edited
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,

@@ -24,7 +24,6 @@ export const connectMongoose = async () => {
     isConnected = true;
     console.log("MongoDB connection successful");
     
-    // Handle connection errors
     (mongoose.connection as Connection).on("error", (err: any) => {
       console.error("MongoDB connection error:", err);
       isConnected = false;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface TaskProps {
+export type TaskProps = {
   _id: string;
   taskName: string;
   description: string;
@@ -24,19 +24,17 @@ const TaskCard: React.FC<TaskProps> = ({
   onMarkComplete,
   onEdit
 }) => {
-  // Function to get priority color
   const getPriorityColor = () => {
     switch (priority) {
-      case 1: return 'bg-red-500'; // Highest priority
+      case 1: return 'bg-red-500'; 
       case 2: return 'bg-orange-500';
       case 3: return 'bg-yellow-500';
       case 4: return 'bg-blue-500';
-      case 5: return 'bg-green-500'; // Lowest priority
+      case 5: return 'bg-green-500'; 
       default: return 'bg-gray-500';
     }
   };
 
-  // Format date to be more readable
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {

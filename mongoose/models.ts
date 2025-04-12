@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-// User interface
+
 export interface IUser extends Document {
   _id: mongoose.Types.ObjectId;
   userId: string;
   name: string;
 }
 
-// Task interface
+
 export interface ITask extends Document {
   _id: mongoose.Types.ObjectId;
   taskName: string;
@@ -20,25 +20,25 @@ export interface ITask extends Document {
   userId: string;
 }
 
-// User schema
+
 const UserSchema = new Schema<IUser>({
   userId: { type: String, required: true, unique: true },
   name: { type: String, required: true }
 });
 
-// Task schema
+
 const TaskSchema = new Schema<ITask>({
   taskName: { 
     type: String, 
     required: true,
     validate: {
       validator: async function(this: ITask, value: string) {
-        // Find existing tasks with same name for this user
+      
         const Task = mongoose.model<ITask>('Task');
         const existingTask = await Task.findOne({ 
           taskName: value, 
           userId: this.userId,
-          _id: { $ne: this._id } // Exclude current document when updating
+          _id: { $ne: this._id } 
         });
         return !existingTask;
       },
@@ -84,6 +84,6 @@ const TaskSchema = new Schema<ITask>({
   updatedAt: { type: Date, default: Date.now }
 });
 
-// Create models if they don't exist
+
 export const User = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 export const Task = mongoose.models.Task || mongoose.model<ITask>('Task', TaskSchema); 

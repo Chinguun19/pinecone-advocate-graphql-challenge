@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 import { UserProvider } from "@/context/UserContext";
 
-// Create Apollo Client instance
 const httpLink = createHttpLink({
   uri: "/api/graphql",
 });

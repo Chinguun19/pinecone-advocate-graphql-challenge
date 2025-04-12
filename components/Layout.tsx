@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useUser } from '@/context/UserContext';
 
-interface LayoutProps {
+type LayoutProps = {
   children: ReactNode;
   title?: string;
 }
