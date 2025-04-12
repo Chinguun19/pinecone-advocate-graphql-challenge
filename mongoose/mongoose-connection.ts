@@ -1,10 +1,8 @@
-import mongoose from "mongoose";
+import mongoose, { Connection } from "mongoose";
 
-// Track the connection status
 let isConnected = false;
 
 export const connectMongoose = async () => {
-  // If already connected, return
   if (isConnected) {
     console.log("=> Using existing MongoDB connection");
     return;
@@ -21,20 +19,19 @@ export const connectMongoose = async () => {
       maxPoolSize: 10, // Maintain up to 10 socket connections
     };
 
-    // Connect to MongoDB
     await mongoose.connect(process.env.MONGODB_URL as string, options);
     
     isConnected = true;
     console.log("MongoDB connection successful");
     
     // Handle connection errors
-    mongoose.connection.on("error", (err) => {
+    (mongoose.connection as Connection).on("error", (err: any) => {
       console.error("MongoDB connection error:", err);
       isConnected = false;
     });
 
     // Handle disconnection
-    mongoose.connection.on("disconnected", () => {
+    (mongoose.connection as Connection).on("disconnected", () => {
       console.log("MongoDB disconnected");
       isConnected = false;
     });
