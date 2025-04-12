@@ -12,21 +12,20 @@ const CompletedTasksPage: React.FC = () => {
   const router = useRouter();
   const { userId, userName } = useUser();
   
-  // If userId is not provided, redirect to home
+
   useEffect(() => {
     if (!userId && typeof window !== 'undefined') {
       router.push('/');
     }
   }, [userId, router]);
   
-  // Query to get all completed tasks
+
   const { loading, error, data, refetch } = useQuery(GET_USER_DONE_TASKS, {
     variables: { userId },
     skip: !userId,
     fetchPolicy: 'network-only',
   });
 
-  // If user is not loaded yet, show loading
   if (!userId) {
     return (
       <Layout title="Task Manager - Loading">
@@ -35,7 +34,6 @@ const CompletedTasksPage: React.FC = () => {
     );
   }
 
-  // Loading state
   if (loading) {
     return (
       <Layout title="Task Manager - Loading">
@@ -44,7 +42,7 @@ const CompletedTasksPage: React.FC = () => {
     );
   }
 
-  // Error state
+
   if (error) {
     return (
       <Layout title="Task Manager - Error">
@@ -74,7 +72,7 @@ const CompletedTasksPage: React.FC = () => {
           </button>
         </div>
         
-        {/* Tasks List */}
+   
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {completedTasks.length > 0 ? (
             completedTasks.map((task: any) => (

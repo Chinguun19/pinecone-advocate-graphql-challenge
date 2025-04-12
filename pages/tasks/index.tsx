@@ -15,21 +15,21 @@ const TasksPage: React.FC = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingTask, setEditingTask] = useState<string | null>(null);
   
-  // If userId is not provided, redirect to home
+
   useEffect(() => {
     if (!userId && typeof window !== 'undefined') {
       router.push('/');
     }
   }, [userId, router]);
-  
-  // Query to get all active tasks
+
+
   const { loading, error, data, refetch } = useQuery(GET_ALL_TASKS, {
     variables: { userId },
     skip: !userId,
     fetchPolicy: 'network-only',
   });
 
-  // Mutation to add a new task
+
   const [addTask, { loading: addLoading }] = useMutation(ADD_TASK, {
     onCompleted: () => {
       setIsAdding(false);
@@ -40,7 +40,7 @@ const TasksPage: React.FC = () => {
     }
   });
 
-  // Mutation to update a task
+
   const [updateTask, { loading: updateLoading }] = useMutation(UPDATE_TASK, {
     onCompleted: () => {
       setEditingTask(null);
@@ -51,7 +51,7 @@ const TasksPage: React.FC = () => {
     }
   });
 
-  // Handle form submission for adding a task
+
   const handleAddTask = (formData: TaskFormData) => {
     if (!userId) return;
     
@@ -64,7 +64,7 @@ const TasksPage: React.FC = () => {
     });
   };
 
-  // Handle form submission for updating a task
+
   const handleUpdateTask = (formData: TaskFormData) => {
     if (!editingTask || !userId) return;
     
@@ -77,7 +77,7 @@ const TasksPage: React.FC = () => {
     });
   };
 
-  // Mark a task as complete
+
   const handleMarkComplete = (taskId: string) => {
     if (!userId) return;
     
@@ -90,16 +90,16 @@ const TasksPage: React.FC = () => {
     });
   };
 
-  // Start editing a task
+
   const handleEdit = (taskId: string) => {
     setEditingTask(taskId);
-    // Scroll to the form
+ 
     setTimeout(() => {
       document.getElementById('edit-form')?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
   };
 
-  // Get the task being edited
+
   const getEditingTaskData = (): TaskFormData | undefined => {
     if (!editingTask || !data?.getAllTasks) return undefined;
     
@@ -114,7 +114,7 @@ const TasksPage: React.FC = () => {
     };
   };
 
-  // If user is not loaded yet, show loading
+
   if (!userId) {
     return (
       <Layout title="Task Manager - Loading">
@@ -123,7 +123,7 @@ const TasksPage: React.FC = () => {
     );
   }
 
-  // Loading state
+
   if (loading) {
     return (
       <Layout title="Task Manager - Loading">
@@ -132,7 +132,7 @@ const TasksPage: React.FC = () => {
     );
   }
 
-  // Error state
+
   if (error) {
     return (
       <Layout title="Task Manager - Error">
@@ -165,7 +165,7 @@ const TasksPage: React.FC = () => {
           </button>
         </div>
 
-        {/* Add Task Form */}
+   
         {isAdding && (
           <div className="bg-white p-6 rounded-lg shadow-md mb-8 border border-gray-200">
             <h2 className="text-xl font-semibold mb-4">Add New Task</h2>
@@ -173,7 +173,7 @@ const TasksPage: React.FC = () => {
           </div>
         )}
 
-        {/* Edit Task Form */}
+   
         {editingTask && (
           <div id="edit-form" className="bg-white p-6 rounded-lg shadow-md mb-8 border border-gray-200">
             <div className="flex justify-between items-center mb-4">
@@ -193,7 +193,7 @@ const TasksPage: React.FC = () => {
           </div>
         )}
 
-        {/* Tasks List */}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {tasks.length > 0 ? (
             tasks.map((task: any) => (

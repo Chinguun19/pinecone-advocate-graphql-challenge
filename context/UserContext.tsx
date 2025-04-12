@@ -21,7 +21,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     setUserId(id);
     setUserName(name);
     
-    // Store in localStorage for persistence
+  
     if (typeof window !== 'undefined') {
       localStorage.setItem('pinecone-user-id', id);
       localStorage.setItem('pinecone-user-name', name);
@@ -32,14 +32,14 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     setUserId(null);
     setUserName(null);
     
-    // Remove from localStorage
+ 
     if (typeof window !== 'undefined') {
       localStorage.removeItem('pinecone-user-id');
       localStorage.removeItem('pinecone-user-name');
     }
   };
 
-  // Initialize from localStorage if available
+
   React.useEffect(() => {
     if (typeof window !== 'undefined') {
       const storedId = localStorage.getItem('pinecone-user-id');
