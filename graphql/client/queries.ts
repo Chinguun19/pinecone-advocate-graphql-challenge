@@ -1,6 +1,5 @@
 import { gql } from '@apollo/client';
 
-// Query to get all active tasks for a user
 export const GET_ALL_TASKS = gql`
   query GetAllTasks($userId: String!) {
     getAllTasks(userId: $userId) {
@@ -17,7 +16,6 @@ export const GET_ALL_TASKS = gql`
   }
 `;
 
-// Query to get all completed tasks for a user
 export const GET_USER_DONE_TASKS = gql`
   query GetUserDoneTasksLists($userId: String!) {
     getUserDoneTasksLists(userId: $userId) {
@@ -34,7 +32,6 @@ export const GET_USER_DONE_TASKS = gql`
   }
 `;
 
-// Mutation to add a new task
 export const ADD_TASK = gql`
   mutation AddTask(
     $taskName: String!
@@ -65,7 +62,6 @@ export const ADD_TASK = gql`
   }
 `;
 
-// Mutation to update an existing task
 export const UPDATE_TASK = gql`
   mutation UpdateTask(
     $taskId: ID!
