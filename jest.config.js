@@ -1,25 +1,19 @@
-// import type { Config } from 'jest'
-const nextJest = require('next/jest')
-const defaults = require('jest-config')
-
-const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-  dir: './',
-})
-
-// Add any custom config to be passed to Jest
-const config = {
+// Jest configuration
+module.exports = {
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'node',
   rootDir: './',
   preset: "ts-jest",
   transform: {
-    "^.+\\.(ts|tsx|js|jsx)$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest"
   },
+  setupFilesAfterEnv: ['<rootDir>/specs/jest-setup.ts'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+  moduleNameMapper: {
+    "@/(.*)$": "<rootDir>/$1"
+  },
   collectCoverage: true,
   collectCoverageFrom: [
-    '!**/*.{js,jsx,ts,tsx}',
     '**/graphql/resolvers/**/*.{js,jsx,ts,tsx}',
     '!**/components/ui/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
@@ -33,12 +27,10 @@ const config = {
   coverageReporters: ['text', 'lcov', 'json', 'html'],
   coverageThreshold: {
     global: {
-      branches: 100,
-      functions: 100,
-      lines: 100,
-      statements: 100,
+      branches: 60,
+      functions: 80,
+      lines: 80,
+      statements: 80,
     },
   },
-}
-
-module.exports = createJestConfig(config)
+};

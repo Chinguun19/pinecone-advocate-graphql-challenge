@@ -6,6 +6,7 @@ import { connectMongoose } from "@/mongoose/mongoose-connection";
 import { GraphQLResolverMap } from "@apollo/subgraph/dist/schema-helper";
 import { typeDefs } from "@/graphql/schemas";
 
+// Connect to MongoDB at startup
 connectMongoose();
 
 const server = new ApolloServer({
@@ -16,7 +17,7 @@ const server = new ApolloServer({
   introspection: true,
   csrfPrevention: true,
   cache: new InMemoryLRUCache(),
-  context: ({ req, res }: { req: Request; res: Response }) => ({
+  context: ({ req, res }) => ({
     headers: req.headers,
     req,
     res,
